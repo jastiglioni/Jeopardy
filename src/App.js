@@ -1,8 +1,8 @@
 import './App.css'
 import './Button.css'
 import {useState} from 'react'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from 'firebase'
+//import 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 // Your web app's Firebase configuration
@@ -17,26 +17,9 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth()
-// const firestore = firebase.firestore()
+const firestore = firebase.firestore()
 
-function App() { 
-  
-  const [user] = useAuthState(auth)
 
-  return (
-    <div className="App">
-    <header>
-      <h1>Welcome to Trivia Buzzer</h1>
-      <SignOut />
-    </header>
-
-    <div>
-      {user ? <Buzzer user={user.uid}/> : <SignIn />}
-    </div>
-
-  </div>
-  )
-}
 
 const SignIn = () => {
  // const [name, setName] = useState('')
@@ -68,31 +51,62 @@ function SignOut() {
 
 const Buzzer = (props) => {
   const [click, setClick] = useState('Blue')
+  //const citiesRef = firestore.collection("cities");
+  const docRef = firestore.collection("cities").doc("SF");
 
-  const changeColor = () => {
-    setClick('Green')
+  const changeColor = async (e) => {
+    e.preventDefault();
+    
+    await docRef.get().then((doc) => {
+      if (doc.exists) {
+          console.log("Hey that document exists!");
+          setClick('Red')
+      } else {
+          // doc.data() will be undefined in this case
+          setClick('Green')
+          docRef.set({
+            name: "Jacob Castiglioni", state: "JC", country: "USA",
+            capital: true, population: 1000000,
+            regions: ["new_england", "northeast"] });
+            
+      }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+      });
+    }
+
+  const reset = async () => {
+    setClick('Blue')
+    await docRef.delete();
   }
+  
  return (
     <>
       <h1>Big Ol' Button</h1>
       <h2>Hello {props.user}</h2>
       <button className={`button${click}`} onClick={changeColor}>CLICK ME TO BUZZ IN</button>
+      <button onClick={reset}>Reset Database & Buzzah!</button>
     </>
   )
+ }
+
+ function App() { 
+  
+  const [user] = useAuthState(auth)
+
+  return (
+    <div className="App">
+    <header>
+      <h1>Welcome to Trivia Buzzer</h1>
+      <SignOut />
+    </header>
+
+    <div>
+      {user ? <Buzzer user={user.uid}/> : <SignIn />}
+    </div>
+
+  </div>
+  )
 }
-
-// function sendBuzz() {
-//   const sendMessage = async (e) => {
-//     e.preventDefault();
-
-//     const { uid } = auth.currentUser;
-//     const dbRef = firestore.collection('buzzUser');
-
-//     await dbRef.add({
-//       buzz: true,
-//       createdAt: firebase.firestore.FieldValue.serverTimestamp()
-//     })
-//   }
-// }
 
 export default App;
