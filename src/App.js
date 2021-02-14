@@ -19,7 +19,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth()
 // const firestore = firebase.firestore()
 
-function App() {
+function App() { 
   
   const [user] = useAuthState(auth)
 
