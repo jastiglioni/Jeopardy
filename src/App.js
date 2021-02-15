@@ -52,15 +52,36 @@ const Buzzer = (props) => {
   const [click, setClick] = useState('Blue')
   const docRef = firestore.collection("cities").doc("SF");
 
-  docRef.get().then((doc) => {
-   if (doc.exists) {
-      if (doc.data().name === props.name) {
-        setClick('Green')
-      } else {
-        setClick('Red')
-      }
+
+  // const unsubscribe = docRef.onSnapshot( qSnap => {
+  //   if (qSnap.exist) {
+  //     setClick('Red')
+  //   }
+  // }) 
+
+
+
+  docRef.onSnapshot((doc) => {
+    if (doc.exists) {
+       if (doc.data().name === props.name) {
+         setClick('Green')
+       } else {
+         setClick('Red')
+       } 
+     } else {
+      setClick('Blue')
     }
-  })
+   })
+
+  // docRef.get().then((doc) => {
+  //  if (doc.exists) {
+  //     if (doc.data().name === props.name) {
+  //       setClick('Green')
+  //     } else {
+  //       setClick('Red')
+  //     }
+  //   }
+  // })
   
  
 
@@ -84,6 +105,7 @@ const Buzzer = (props) => {
     }).catch((error) => {
         console.log("Error getting document:", error);
       });
+
     }
 
   const reset = async () => {
