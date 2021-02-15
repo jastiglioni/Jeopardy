@@ -53,9 +53,12 @@ const Buzzer = (props) => {
   const docRef = firestore.collection("cities").doc("SF");
 
   docRef.get().then((doc) => {
-    if (doc.exists) {
-        console.log("Hey that document exists!");
+   if (doc.exists) {
+      if (doc.data().name === props.name) {
+        setClick('Green')
+      } else {
         setClick('Red')
+      }
     }
   })
   
@@ -70,12 +73,11 @@ const Buzzer = (props) => {
           console.log("Hey that document exists!");
           setClick('Red')
       } else {
-          // doc.data() will be undefined in this case
           setClick('Green')
           docRef.set({
-            name: "Jacob Castiglioni", state: "JC", country: "USA",
-            capital: true, population: 1000000,
-            regions: ["new_england", "northeast"] });   
+            name: props.name,
+            buzzer: true
+          })  
             console.log("You buzzed in!");
       }
       
@@ -94,7 +96,7 @@ const Buzzer = (props) => {
  return (
     <>
       <h1>Big Ol' Button</h1>
-      <h2>Hello {props.user}</h2>
+      <h2>Hello {props.name}</h2>
       <button className={`button${click}`} onClick={changeColor}>CLICK ME TO BUZZ IN</button>
       <button onClick={reset}>Reset Database & Buzzah!</button>
     </>
@@ -118,7 +120,7 @@ const Buzzer = (props) => {
     </header>
 
     <div>
-      {user ? <Buzzer user={name}/> : <SignIn func={setUser}/>}
+      {user ? <Buzzer name={name}/> : <SignIn func={setUser}/>}
     </div>
 
   </div>
