@@ -1,8 +1,7 @@
 import './App.css'
 import './Button.css'
-import {useState} from 'react'
+import React, {useState} from 'react'
 import firebase from 'firebase'
-//import 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 // Your web app's Firebase configuration
@@ -21,8 +20,8 @@ const firestore = firebase.firestore()
 
 
 
-const SignIn = () => {
- // const [name, setName] = useState('')
+const SignIn = (props) => {
+ 
   
   const signIn = (e) => {
     e.preventDefault()
@@ -36,8 +35,8 @@ const SignIn = () => {
   return (
     <>
       <form onSubmit={signIn}>
-        <input placeholder="enter your name here"></input>
-        <button type="submit">Sign Into Trivia</button>
+        <input placeholder="enter your name here" onChange={props.func}></input>
+        <button type="submit" >Sign Into Trivia</button>
       </form>
     </>
   )
@@ -104,6 +103,12 @@ const Buzzer = (props) => {
  function App() { 
   
   const [user] = useAuthState(auth)
+  const [name, setName] = useState('')
+
+  const setUser = (e) => {
+    e.preventDefault()
+    setName(e.target.value)
+  }
 
   return (
     <div className="App">
@@ -113,7 +118,7 @@ const Buzzer = (props) => {
     </header>
 
     <div>
-      {user ? <Buzzer user={user.uid}/> : <SignIn />}
+      {user ? <Buzzer user={name}/> : <SignIn func={setUser}/>}
     </div>
 
   </div>
