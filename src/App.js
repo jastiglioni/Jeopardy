@@ -51,11 +51,20 @@ function SignOut() {
 
 const Buzzer = (props) => {
   const [click, setClick] = useState('Blue')
-  //const citiesRef = firestore.collection("cities");
   const docRef = firestore.collection("cities").doc("SF");
+
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+        console.log("Hey that document exists!");
+        setClick('Red')
+    }
+  })
+  
+ 
 
   const changeColor = async (e) => {
     e.preventDefault();
+
     
     await docRef.get().then((doc) => {
       if (doc.exists) {
@@ -67,9 +76,10 @@ const Buzzer = (props) => {
           docRef.set({
             name: "Jacob Castiglioni", state: "JC", country: "USA",
             capital: true, population: 1000000,
-            regions: ["new_england", "northeast"] });
-            
+            regions: ["new_england", "northeast"] });   
+            console.log("You buzzed in!");
       }
+      
     }).catch((error) => {
         console.log("Error getting document:", error);
       });
@@ -77,7 +87,9 @@ const Buzzer = (props) => {
 
   const reset = async () => {
     setClick('Blue')
-    await docRef.delete();
+    await docRef.delete().then(() => {
+      console.log("db reset");
+    });
   }
   
  return (
@@ -87,8 +99,7 @@ const Buzzer = (props) => {
       <button className={`button${click}`} onClick={changeColor}>CLICK ME TO BUZZ IN</button>
       <button onClick={reset}>Reset Database & Buzzah!</button>
     </>
-  )
- }
+  )}
 
  function App() { 
   
