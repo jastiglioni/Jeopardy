@@ -2,6 +2,7 @@ import '../styles/Button.css'
 import React, {useState} from 'react'
 import firebase from 'firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { Link } from 'react-router-dom'
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -115,6 +116,7 @@ const Button = (props) => {
   return (
     <div className="App">
     <header>
+    <Link to="/">Home Page</Link>
       <h1>Welcome to Trivia Buzzer</h1>
       
     </header>

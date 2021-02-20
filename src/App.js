@@ -1,8 +1,9 @@
 import Buzzer from './components/Buzzer'
 import TriviaBoard from './components/TriviaBoard'
+import Home from './components/Home'
 import {
   BrowserRouter as Router,
-  Switch, Route,
+  Switch, Route
 } from 'react-router-dom';
 
 const notes = [
@@ -49,6 +50,9 @@ const notes = [
         
 
         <Switch>
+          <Route exact path="/" render={() => (
+                <Home />
+              )} />
           <Route path="/buzzer" component={Buzzer} />
           <Route path="/trivia" render={() => (
                 <TriviaBoard notes={notes} />
