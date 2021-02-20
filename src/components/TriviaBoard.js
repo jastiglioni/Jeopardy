@@ -10,10 +10,6 @@ const TriviaBoard = (props) => {
   const [audio, setAudio] = useState(false)
   const [answer, setAnswer] = useState(props.answer)
 
-
- 
-  
-
   const setQuestion = (tile) => {
     setq2(tile.text)
     setAudio(tile.audio)
@@ -31,9 +27,6 @@ const TriviaBoard = (props) => {
   }
 
   
-
-  
-
   const col = {
     color: `white`,
     fontFamily: `Impact`,

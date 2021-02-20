@@ -47,12 +47,8 @@ const notes = [
     return (
     <div>
       <Router>
-        
-
         <Switch>
-          <Route exact path="/" render={() => (
-                <Home />
-              )} />
+          <Route exact path="/" render={() => (<Home />)} />
           <Route path="/buzzer" component={Buzzer} />
           <Route path="/trivia" render={() => (
                 <TriviaBoard notes={notes} />

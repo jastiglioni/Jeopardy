@@ -1,23 +1,15 @@
 import '../styles/Button.css'
 import React, {useState} from 'react'
-import firebase from 'firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Link } from 'react-router-dom'
+import db from './dbConfig'
 
-// Your web app's Firebase configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyDQeMfG15IFXgDT_5RYOQferU7pds7E0Fc",
-  authDomain: "trivia-7a705.firebaseapp.com",
-  projectId: "trivia-7a705",
-  storageBucket: "trivia-7a705.appspot.com",
-  messagingSenderId: "775258286646",
-  appId: "1:775258286646:web:797eec688d5ffd16708697"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth()
-const firestore = firebase.firestore()
-const docRef = firestore.collection("cities").doc("SF");
+const auth = db.auth()
+const firestore = db.firestore()
+const docRef = firestore.collection("trivia").doc("Buzzer");
+const docRefBuzzBar = firestore.collection("trivia").doc("Bar");
+
+//console.log("Hey " + docRefBuzzBar.get());
 
 
 const SignIn = (props) => {
@@ -58,12 +50,15 @@ const Button = (props) => {
          setClick('Green')
        } else {
          setClick('Red')
+         
        } 
      } else {
       setClick('Blue')
     }
    })
 
+
+  
   const changeColor = async (e) => {
     e.preventDefault();
 
@@ -85,7 +80,28 @@ const Button = (props) => {
         console.log("Error getting document:", error);
       });
 
+
+
     }
+
+
+    const toggleBuzzerBar = async(e) => {
+      e.preventDefault();
+
+      await docRefBuzzBar.get().then((doc) => {
+        if (doc.exists) {
+            docRefBuzzBar.set({
+              status: !doc.data().status
+            })
+        } else {
+          docRefBuzzBar.set({
+            status: true
+          })
+            }   
+      })
+
+    }
+  
 
   const reset = async () => {
     setClick('Blue')
@@ -100,6 +116,9 @@ const Button = (props) => {
       <button className={`button${click}`} onClick={changeColor}>CLICK ME TO BUZZ IN</button>
       <br/>
       <button onClick={reset}>Reset Database & Buzzah!</button>
+      <br/>
+      <br/>
+      <button onClick={toggleBuzzerBar}>TURN ON BUZZER</button>
     </>
   )}
 
