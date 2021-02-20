@@ -1,13 +1,19 @@
 .buttonGreen {
     background-color: green;
     color: white;
+    font-size: 30px;
+    border-radius: 25%;
 }
 
 .buttonRed {
     background-color: red;
+    font-size: 30px;
+    border-radius: 25%;
 }
 
 .buttonBlue {
     background-color: blue;
     color: white;
+    font-size: 30px;
+    border-radius: 25%;
 }
