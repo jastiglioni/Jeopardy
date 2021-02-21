@@ -44,8 +44,9 @@ const Button = (props) => {
   const [click, setClick] = useState('Blue')
   //const docRef = firestore.collection("cities").doc("SF");
 
-  const hook = (props) => {FireStoreService.getButtonStatus().then(doc => {
+  const hook = (props) => {FireStoreService.getButtonStatus(doc => {
     if (doc.data().name === props.name) {
+      console.log("the props name is: ", props.name);
       setClick('Green')
     } else if (doc.data().name === "Buzzer Active") {
       setClick('Blue')
@@ -53,9 +54,9 @@ const Button = (props) => {
       setClick('Red')
     }
   })
-  }
+}
 
-  useEffect(hook, [click, setClick])
+  useEffect(hook, [])
 
   
   const changeColor = async (e) => {
@@ -66,7 +67,7 @@ const Button = (props) => {
       if (doc.exists) {
         const data = doc.data()
 
-        if (data.status) {
+        if (data.buzzer) {
           console.log("Someone buzzed in before you")
           setClick('Red')
         } else {
@@ -84,16 +85,16 @@ const Button = (props) => {
         console.log("Error getting document: ", error)
       }) 
 
-    }
+  }
 
-
-    const toggleBuzzerBar = async(e) => {
-      e.preventDefault();
-      FireStoreService.toggleBuzzBar()
-    }
+  const toggleBuzzerBar = async(e) => {
+    e.preventDefault();
+    FireStoreService.toggleBuzzBar((await FireStoreService.getBuzzBarStatus()).data().status)
+    //console.log((await FireStoreService.getBuzzBarStatus()).data())
+  }
   
-
-  const reset = async () => {
+  const reset = async (e) => {
+    e.preventDefault()
     setClick('Blue')
     FireStoreService.resetBuzzUser()
   }

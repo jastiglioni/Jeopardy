@@ -67,23 +67,17 @@ var firebaseConfig = {
     )
   }
 
-  export const toggleBuzzBar = async () => {
-    const status = getBuzzBarStatus.then(doc => {
-      if (doc.exist) {
-        return doc.data().status
-      }
-    })
-
-    return (
+  export const toggleBuzzBar = async (status) => {
+   return (
       await docRefBuzzStatus.update({
         status: !status
       })
     )
   }
 
-  export const getButtonStatus = async () => {
+  export const getButtonStatus = () => {
     return (
-      await docRefBuzzUser.onSnapshot()
+       docRefBuzzUser.onSnapshot()
     )
   }
 
