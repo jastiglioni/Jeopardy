@@ -1,13 +1,13 @@
 import '../styles/Button.css'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Link } from 'react-router-dom'
-import db from './dbConfig'
+//import db from './dbConfig'
+import * as FireStoreService from '../services/dbConfig'
 
-const auth = db.auth()
-const firestore = db.firestore()
-const docRef = firestore.collection("trivia").doc("Buzzer");
-const docRefBuzzBar = firestore.collection("trivia").doc("Bar");
+const auth = FireStoreService.auth
+
+
 
 //console.log("Hey " + docRefBuzzBar.get());
 
@@ -17,12 +17,8 @@ const SignIn = (props) => {
   
   const signIn = (e) => {
     e.preventDefault()
-    auth.signInAnonymously()
-      .then(() => {
-        console.log("user is signed in");
-       // setName(e.target.value)
-      })
-    }
+    FireStoreService.signInAnon()
+  }
 
   return (
     <>
@@ -35,8 +31,12 @@ const SignIn = (props) => {
 }
 
 function SignOut() {
+
+    const signOut = () => {
+      FireStoreService.signOut()
+    }
   return auth.currentUser && (
-    <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
+    <button className="sign-out" onClick={signOut}>Sign Out</button>
   )
 }
 
@@ -44,70 +44,58 @@ const Button = (props) => {
   const [click, setClick] = useState('Blue')
   //const docRef = firestore.collection("cities").doc("SF");
 
-  docRef.onSnapshot((doc) => {
-    if (doc.exists) {
-       if (doc.data().name === props.name) {
-         setClick('Green')
-       } else {
-         setClick('Red')
-         
-       } 
-     } else {
+  const hook = (props) => {FireStoreService.getButtonStatus().then(doc => {
+    if (doc.data().name === props.name) {
+      setClick('Green')
+    } else if (doc.data().name === "Buzzer Active") {
       setClick('Blue')
+    } else {
+      setClick('Red')
     }
-   })
+  })
+  }
 
+  useEffect(hook, [click, setClick])
 
   
   const changeColor = async (e) => {
     e.preventDefault();
 
-    
-    await docRef.get().then((doc) => {
-      if (doc.exists) {
-          console.log("Hey that document exists!");
-          setClick('Red')
-      } else {
-          setClick('Green')
-          docRef.set({
-            name: props.name,
-            buzzer: true
-          })  
-            console.log("You buzzed in!");
-      }
+    FireStoreService.getBuzzUser().then(doc => {
       
-    }).catch((error) => {
-        console.log("Error getting document:", error);
-      });
+      if (doc.exists) {
+        const data = doc.data()
 
-
+        if (data.status) {
+          console.log("Someone buzzed in before you")
+          setClick('Red')
+        } else {
+          console.log(`${props.name} buzzed in first!`)
+          FireStoreService.setBuzzUser(props.name)
+          setClick('Green')
+        }
+      } 
+      
+      else {
+        console.log("The BuzzUser document doesn't exist")
+      }
+    
+      }).catch(error => {
+        console.log("Error getting document: ", error)
+      }) 
 
     }
 
 
     const toggleBuzzerBar = async(e) => {
       e.preventDefault();
-
-      await docRefBuzzBar.get().then((doc) => {
-        if (doc.exists) {
-            docRefBuzzBar.set({
-              status: !doc.data().status
-            })
-        } else {
-          docRefBuzzBar.set({
-            status: true
-          })
-            }   
-      })
-
+      FireStoreService.toggleBuzzBar()
     }
   
 
   const reset = async () => {
     setClick('Blue')
-    await docRef.delete().then(() => {
-      console.log("db reset");
-    });
+    FireStoreService.resetBuzzUser()
   }
   
  return (

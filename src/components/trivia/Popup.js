@@ -7,12 +7,6 @@ import db from '../dbConfig'
 const firestore = db.firestore()
 
 
-
-
-
-
-
-
 const Popup = (props) => {
 
     const docRef = firestore.collection("trivia").doc("Buzzer");
