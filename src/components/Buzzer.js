@@ -42,21 +42,38 @@ function SignOut() {
 
 const Button = (props) => {
   const [click, setClick] = useState('Blue')
+  const [name, setName] = useState(props.name)
   //const docRef = firestore.collection("cities").doc("SF");
 
-  const hook = (props) => {FireStoreService.getButtonStatus(doc => {
-    if (doc.data().name === props.name) {
-      console.log("the props name is: ", props.name);
-      setClick('Green')
-    } else if (doc.data().name === "Buzzer Active") {
-      setClick('Blue')
-    } else {
-      setClick('Red')
-    }
+//   const hook = () => {FireStoreService.getButtonStatus(doc => {
+//     if (doc.data().name === name) {
+//       console.log("the props name is: ", name);
+//       setClick('Green')
+//     } else if (doc.data().name === "Buzzer Active") {
+//       setClick('Blue')
+//     } else {
+//       setClick('Red')
+//     }
+//   })
+// }
+
+const hook = () => {
+  const unsubscribe = FireStoreService.getButtonStatus({
+    next: dbSnapshot => {
+      if (dbSnapshot.data().name === name) {
+        setClick('Green')
+      } else if (dbSnapshot.data().name === 'Buzzer Active') {
+        setClick('Blue')
+      } else {
+        setClick('Red')
+      }
+    },
+    error: () => console.log("there is an error with hook")
   })
+  return unsubscribe
 }
 
-  useEffect(hook, [])
+  useEffect(hook, [name, setClick])
 
   
   const changeColor = async (e) => {
@@ -66,14 +83,12 @@ const Button = (props) => {
       
       if (doc.exists) {
         const data = doc.data()
-
-        if (data.buzzer) {
-          console.log("Someone buzzed in before you")
-          setClick('Red')
-        } else {
-          console.log(`${props.name} buzzed in first!`)
-          FireStoreService.setBuzzUser(props.name)
+        if (!data.buzzer || (data.name === name)) {
+          console.log(`${props.name} buzzed in >:^(`)
+          FireStoreService.setBuzzUser(name)
           setClick('Green')
+        } else {
+          setClick('Red')
         }
       } 
       
@@ -101,13 +116,13 @@ const Button = (props) => {
   
  return (
     <>
-      <h2>Hello {props.name}</h2>
+      <h2>Hello {name}</h2>
       <button className={`button${click}`} onClick={changeColor}>CLICK ME TO BUZZ IN</button>
       <br/>
       <button onClick={reset}>Reset Database & Buzzah!</button>
       <br/>
       <br/>
-      <button onClick={toggleBuzzerBar}>TURN ON BUZZER</button>
+      <button onClick={toggleBuzzerBar}>TOGGLE BUZZER</button>
     </>
   )}
 

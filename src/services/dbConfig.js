@@ -75,9 +75,9 @@ var firebaseConfig = {
     )
   }
 
-  export const getButtonStatus = () => {
+  export const getButtonStatus = (observer) => {
     return (
-       docRefBuzzUser.onSnapshot()
+       docRefBuzzUser.onSnapshot(observer)
     )
   }
 
