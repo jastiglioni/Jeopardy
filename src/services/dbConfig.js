@@ -34,9 +34,9 @@ export const getDB = (observer) => {
   }
 
   export const signOut = () => {
-    return auth.onAuthStateChanged(user => {
-      user.signOut()
-    })
+    return (
+      auth.signOut()
+    )
   }
 
   export const getBuzzUser = async () => {
@@ -76,10 +76,16 @@ export const getDB = (observer) => {
     )
   }
 
+  export const readBuzzerStatus = () => {
+    return (
+      docRefBuzzStatus.onSnapshot()
+    )
+  }
+
   export const toggleBuzzBar = async () => {
    return (
      docRefBuzzStatus.update({
-       status: !getDbSnapshot.doc("Bar").data().status
+       status: !(await docRefBuzzStatus.get()).data().status
      })
    )
   }
