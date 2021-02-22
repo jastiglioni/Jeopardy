@@ -16,10 +16,22 @@
     align-items: center;
 }
 
-.popup .buzzbar {
-    width: 77%;
-    background-color: yellowgreen;
+.popup .buzzbartrue {
+    width: 69%;
+    background-color: rgb(255, 238, 0);
+    border-style: solid;
+    border-color: yellow;
     font-size: 25px;
+    border-radius: 25px;
+    font-family: korinna;
+    src: url(Korinna-Regular.otf)
+}
+
+.popup .buzzbarfalse {
+    width: 65%;
+    background-color: #0309B8;
+    font-size: 25px;
+    color: #0309B8;
 }
 
 
@@ -51,6 +63,7 @@
     color: whitesmoke;
     text-shadow: 3px 3px 0.075em black;
     font-size: 45px;
+    font-family: Kor;
 }
 
 .popup-inner .close-btn {

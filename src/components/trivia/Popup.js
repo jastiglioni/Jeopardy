@@ -1,92 +1,87 @@
-// import React, {useState, useEffect} from 'react'
-// import './Popup.css'
-// import Play from './Play'
-// import Answer from './Answer'
-// import db from '../dbConfig'
-// //const firestore = db.firestore()
-// const firestore = db.firestore()
-
-
-// const Popup = (props) => {
-
-//     const docRef = firestore.collection("trivia").doc("Buzzer");
-//     const docRefBuzzBar = firestore.collection("trivia").doc("Bar");
-//     //const docRef = db.firestore().collection("cities").doc("SF");
-    
-    
-    
-//     var buzzerName = "jhaha"
-//     var buzzerStatus = true
-    
-    
-    
+import React, {useState, useEffect} from 'react'
+import './Popup.css'
+import Play from './Play'
+import Answer from './Answer'
+import * as FireStoreService from '../../services/dbConfig'
 
 
 
-// const setName = async () => {
-//     await docRef.get().then(doc => {
-//         if (doc.exists) {
-//             return doc.data().name
-//         } else {
-//             console.log("doc doesnt exist");
-//         }
+const Popup = (props) => {
+
+const [name, setName] = useState('')
+const [barStatus, setBarStatus] = useState(true)
+
+
+const hook = () => {
+    const unsubscribe = FireStoreService.getButtonStatus({
+      next: dbSnapshot => {
+        setName(dbSnapshot.data().name)
+        // setBarStatus(dbSnapshot.doc("Buzzer").data().status)
+      },
+      error: () => console.log("there is an error with hook on popup")
+    })
+    return unsubscribe
+  }
+
+// const hook = () => {
+//     const unsubscribe = FireStoreService.getDB({
+//       next: dbSnapshot => {
+//         setName(dbSnapshot.doc("Buzzer").data().name)
+//         setBarStatus(dbSnapshot.doc("Bar").data().status)
+//       },
+//       error: () => console.log("there is an error with hook on popup")
 //     })
-// }
+//     return unsubscribe
+//   }
+
+//   const hook2 = () => {
+//       const unsubscribe = FireStoreService.getButtonStatus({
+//           next: dbSnapshot => {
+//             setBarStatus(dbSnapshot.data().status)
+//           }
+//       })
+//       return unsubscribe
+//   }
   
+    useEffect(hook, [setName, setBarStatus])
+    //useEffect(hook2, [setBarStatus])
+
+  console.log("bar status is ", barStatus);
     
-//     const [ansFlag, setAnsFlag] = useState(false)
-//     const toggleAnswer = () => {
-//         setAnsFlag(!ansFlag)
-//         console.log(ansFlag);
-//     }
+    const [ansFlag, setAnsFlag] = useState(false)
+    const toggleAnswer = () => {
+        setAnsFlag(!ansFlag)
+        console.log(ansFlag);
+    }
 
-//     const popupToggle = (f) => {
-//         setAnsFlag(false)
-//         return f()
-//     }
-
-
-//     // docRefBuzzBar.onSnapshot(doc => {
-//     //     if (doc.exist) {
-//     //     console.log("doc exists")
-//     //     buzzerStatus = doc.data().status
-//     //     }
-//     // })
-
-
-// //     const hook = () => { docRefBuzzBar.onSnapshot(doc => {
-// //         if (doc.exist)
-// //         console.log("doc exists");
-// //         setBuzzerStatus(doc.data().status)
-// //     })
-// // }
-
-// //     useEffect(hook, [])
+    const popupToggle = (f) => {
+        setAnsFlag(false)
+        return f()
+    }
 
 
 
 
+    return (props.trigger) ? (
+        <div className='popup'>
 
-//     return (props.trigger) ? (
-//         <div className='popup'>
 
-
-//             <div className="buzzbar">{() => setName}</div>
+            <div className={`buzzbar${barStatus}`}>{name}</div>
             
 
-//             <div className='popup-inner'>
-//                 <div className='close-btn'>
-//                 <button onClick={toggleAnswer}>Answer</button>
-//                 <button onClick={() => popupToggle(props.func)} >X</button>
-//                 </div>
-//                     <p className='text'>{props.text}</p>
+            <div className='popup-inner'>
+                <div className='close-btn'>
+                <button onClick={toggleAnswer}>Answer</button>
+                <button onClick={() => popupToggle(props.func)} >X</button>
+                </div>
+                    <p className='text'>{props.text}</p>
                     
                     
-//                     <Answer flag={ansFlag} answer={props.answer} />
-//                     <Play audio={props.audio}/>
-//             </div>
-//         </div>
-//     ) :''
-// }
+                    <Answer flag={ansFlag} answer={props.answer} />
+                    <Play audio={props.audio}/>
+            </div>
+        </div>
+    ) :''
+}
 
-// export default Popup
+export default Popup

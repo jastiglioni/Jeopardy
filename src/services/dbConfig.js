@@ -18,7 +18,11 @@ var firebaseConfig = {
   const docRefBuzzUser = db.collection("trivia").doc("Buzzer")
   const docRefBuzzStatus = db.collection("trivia").doc("Bar")
 
-
+export const getDB = (observer) => {
+  return (
+    db.onSnapshot(observer)
+  )
+}
 
   export const signInAnon = () => {
     return (
@@ -30,9 +34,9 @@ var firebaseConfig = {
   }
 
   export const signOut = () => {
-    return (
-      auth.signOut()
-    )
+    return auth.onAuthStateChanged(user => {
+      user.signOut()
+    })
   }
 
   export const getBuzzUser = async () => {
@@ -40,6 +44,8 @@ var firebaseConfig = {
       await docRefBuzzUser.get()
     )
   }
+
+
 
   export const setBuzzUser = async (name) => {
     return (
@@ -52,11 +58,14 @@ var firebaseConfig = {
 
   // this function returns Bar doc in firebase
   // must specify doc.data().status to get status
-  export const getBuzzBarStatus = async () => {
+  export const getDbSnapshot =  (observer) => {
     return (
-      await docRefBuzzStatus.get()
+      db.collection("trivia").onSnapshot(observer)
     )
   }
+
+
+
 
   export const resetBuzzUser = async () => {
     return (
@@ -67,12 +76,12 @@ var firebaseConfig = {
     )
   }
 
-  export const toggleBuzzBar = async (status) => {
+  export const toggleBuzzBar = async () => {
    return (
-      await docRefBuzzStatus.update({
-        status: !status
-      })
-    )
+     docRefBuzzStatus.update({
+       status: !getDbSnapshot.doc("Bar").data().status
+     })
+   )
   }
 
   export const getButtonStatus = (observer) => {

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 //import db from './dbConfig'
 import * as FireStoreService from '../services/dbConfig'
 
-const auth = FireStoreService.auth
+//const auth = FireStoreService.auth
 
 
 
@@ -32,10 +32,11 @@ const SignIn = (props) => {
 
 function SignOut() {
 
-    const signOut = () => {
+    const signOut = (e) => {
+      e.preventDefault()
       FireStoreService.signOut()
     }
-  return auth.currentUser && (
+  return (
     <button className="sign-out" onClick={signOut}>Sign Out</button>
   )
 }
@@ -43,19 +44,7 @@ function SignOut() {
 const Button = (props) => {
   const [click, setClick] = useState('Blue')
   const [name, setName] = useState(props.name)
-  //const docRef = firestore.collection("cities").doc("SF");
 
-//   const hook = () => {FireStoreService.getButtonStatus(doc => {
-//     if (doc.data().name === name) {
-//       console.log("the props name is: ", name);
-//       setClick('Green')
-//     } else if (doc.data().name === "Buzzer Active") {
-//       setClick('Blue')
-//     } else {
-//       setClick('Red')
-//     }
-//   })
-// }
 
 const hook = () => {
   const unsubscribe = FireStoreService.getButtonStatus({
@@ -104,7 +93,8 @@ const hook = () => {
 
   const toggleBuzzerBar = async(e) => {
     e.preventDefault();
-    FireStoreService.toggleBuzzBar((await FireStoreService.getBuzzBarStatus()).data().status)
+    //FireStoreService.toggleBuzzBar((await FireStoreService.getBuzzBarStatus()).data().status)
+    FireStoreService.toggleBuzzBar()
     //console.log((await FireStoreService.getBuzzBarStatus()).data())
   }
   
@@ -128,7 +118,7 @@ const hook = () => {
 
  function Buzzer() { 
   
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(FireStoreService.auth)
   const [name, setName] = useState('')
 
   const setUser = (e) => {
