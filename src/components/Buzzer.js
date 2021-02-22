@@ -64,10 +64,29 @@ const hook = () => {
 
   useEffect(hook, [name, setClick])
 
-  
+  const [barStatus, setBarStatus] = useState(false)
+
+
+
+    const hook2 = () => {
+        const unsubscribe = FireStoreService.readBuzzerStatus({
+          next: dbSnapshot => {
+            setBarStatus(dbSnapshot.data().status)
+            // setBarStatus(dbSnapshot.doc("Buzzer").data().status)
+          },
+          error: () => console.log("there is an error with hook on popup")
+        })
+        return unsubscribe
+      }
+
+      useEffect(hook2, [barStatus, setBarStatus])
+
+
   const changeColor = async (e) => {
     e.preventDefault();
+if (!barStatus) {
 
+} else {
     FireStoreService.getBuzzUser().then(doc => {
       
       if (doc.exists) {
@@ -76,6 +95,8 @@ const hook = () => {
           console.log(`${props.name} buzzed in >:^(`)
           FireStoreService.setBuzzUser(name)
           setClick('Green')
+        } else if (data.name === 'Buzzer Active'){
+          setClick('Blue')
         } else {
           setClick('Red')
         }
@@ -89,30 +110,19 @@ const hook = () => {
         console.log("Error getting document: ", error)
       }) 
 
-  }
+    }  }
 
-  const toggleBuzzerBar = async(e) => {
-    e.preventDefault();
-    //FireStoreService.toggleBuzzBar((await FireStoreService.getBuzzBarStatus()).data().status)
-    FireStoreService.toggleBuzzBar()
-    //console.log((await FireStoreService.getBuzzBarStatus()).data())
-  }
+ 
   
-  const reset = async (e) => {
-    e.preventDefault()
-    setClick('Blue')
-    FireStoreService.resetBuzzUser()
-  }
+ 
   
  return (
     <>
       <h2>Hello {name}</h2>
       <button className={`button${click}`} onClick={changeColor}>CLICK ME TO BUZZ IN</button>
       <br/>
-      <button onClick={reset}>Reset Database & Buzzah!</button>
-      <br/>
-      <br/>
-      <button onClick={toggleBuzzerBar}>TOGGLE BUZZER</button>
+      
+     
     </>
   )}
 

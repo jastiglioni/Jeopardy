@@ -27,6 +27,7 @@ const TriviaBoard = (props) => {
     FireStoreService.docRefBuzzStatus.update({
       status: false
     })
+    FireStoreService.resetBuzzUser()
   }
 
   

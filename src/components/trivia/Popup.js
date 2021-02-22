@@ -26,28 +26,6 @@ const hook = () => {
 
    useEffect(hook, [setName])
 
-// const hook = () => {
-//     const unsubscribe = FireStoreService.getDB({
-//       next: dbSnapshot => {
-//         setName(dbSnapshot.doc("Buzzer").data().name)
-//         setBarStatus(dbSnapshot.doc("Bar").data().status)
-//       },
-//       error: () => console.log("there is an error with hook on popup")
-//     })
-//     return unsubscribe
-//   }
-
-//   const hook2 = () => {
-//       const unsubscribe = FireStoreService.getButtonStatus({
-//           next: dbSnapshot => {
-//             setBarStatus(dbSnapshot.data().status)
-//           }
-//       })
-//       return unsubscribe
-//   }
-  
-    // useEffect(hook, [setName, setBarStatus])
-    //useEffect(hook2, [setBarStatus])
 
 
     

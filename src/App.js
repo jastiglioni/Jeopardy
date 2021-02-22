@@ -1,6 +1,7 @@
 import Buzzer from './components/Buzzer'
 import TriviaBoard from './components/TriviaBoard'
 import Home from './components/Home'
+import Admin from './components/Admin'
 import {
   BrowserRouter as Router,
   Switch, Route
@@ -53,6 +54,7 @@ const notes = [
           <Route path="/trivia" render={() => (
                 <TriviaBoard notes={notes} />
               )} />
+          <Route path="/admin" component={Admin} />
         </Switch>
 
       </Router>
