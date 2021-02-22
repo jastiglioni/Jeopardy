@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import * as FireStoreService from '../../services/dbConfig'
+import './Popup.css'
 
 export default function BuzzBar(props) {
     const [barStatus, setBarStatus] = useState(false)
