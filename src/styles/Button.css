@@ -1,19 +1,86 @@
-.buttonGreen {
-    background-color: green;
-    color: white;
-    font-size: 30px;
-    border-radius: 25%;
+button.buttonGreen{
+    display:inline-block;
+    padding:0.7em 1.4em;
+    margin:0 0.3em 0.3em 0;
+    border-radius: 25px;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    text-transform:uppercase;
+    font-weight:400;
+    color: #FFFFFF;
+    background-color:green;
+    box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+    text-align:center;
+    position:relative;
+    height: 500px;
+    width: 400px;
+    }
+    button.buttonGreen:active{
+        top:0.1em;
+    }
+    @media all and (max-width:30em){
+         button.buttonGreen{
+        display:block;
+        margin:0.4em auto;
+    }
 }
 
-.buttonRed {
-    background-color: red;
-    font-size: 30px;
-    border-radius: 25%;
+button.buttonBlue{
+    display:inline-block;
+    padding:0.7em 1.4em;
+    margin:0 0.3em 0.3em 0;
+    border-radius: 25px;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    text-transform:uppercase;
+    font-weight:400;
+    color:#FFFFFF;
+    background-color:#3369ff;
+    box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+    text-align:center;
+    position:relative;
+    height: 500px;
+    width: 400px;
+    }
+    button.buttonBlue:active{
+        top:0.1em;
+    }
+    @media all and (max-width:30em){
+         button.buttonBlue{
+        display:block;
+        margin:0.4em auto;
+    }
 }
 
-.buttonBlue {
-    background-color: blue;
-    color: white;
-    font-size: 30px;
-    border-radius: 25%;
+
+button.buttonRed{
+    display:inline-block;
+    padding:0.7em 1.4em;
+    margin:0 0.3em 0.3em 0;
+    border-radius: 25px;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    text-transform:uppercase;
+    font-weight:400;
+    color:#FFFFFF;
+    background-color:red;
+    box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+    text-align:center;
+    position:relative;
+    height: 500px;
+    width: 400px;
+    }
+    button.buttonRed:active{
+        top:0.1em;
+    }
+    @media all and (max-width:30em){
+         button.buttonRed{
+        display:block;
+        margin:0.4em auto;
+    }
 }
+
+

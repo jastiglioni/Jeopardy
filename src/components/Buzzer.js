@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { Link } from 'react-router-dom'
 //import db from './dbConfig'
 import * as FireStoreService from '../services/dbConfig'
+import bee from './bee.png'
 
 //const auth = FireStoreService.auth
 
@@ -118,8 +119,8 @@ if (!barStatus) {
   
  return (
     <>
-      <h2>Hello {name}</h2>
-      <button className={`button${click}`} onClick={changeColor}>CLICK ME TO BUZZ IN</button>
+      <h1>Hello {name}</h1>
+      <button className={`button${click}`} onClick={changeColor}><img src={bee} alt="bee" width="300" height="300" /></button>
       <br/>
       
      
@@ -139,7 +140,7 @@ if (!barStatus) {
   return (
     <div className="App">
     <header>
-    <Link to="/">Home Page</Link>
+    
       <h1>Welcome to Trivia Buzzer</h1>
       
     </header>
