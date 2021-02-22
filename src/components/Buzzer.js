@@ -1,7 +1,6 @@
 import '../styles/Button.css'
 import React, {useState, useEffect} from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { Link } from 'react-router-dom'
 //import db from './dbConfig'
 import * as FireStoreService from '../services/dbConfig'
 import bee from './bee.png'
@@ -120,7 +119,7 @@ if (!barStatus) {
  return (
     <>
       <h1>Hello {name}</h1>
-      <button className={`button${click}`} onClick={changeColor}><img src={bee} alt="bee" width="300" height="300" /></button>
+      <button className={barStatus ? `button${click}` : `buttonGrey`} onClick={changeColor}><img src={bee} alt="bee" width="300" height="300" /></button>
       <br/>
       
      
@@ -131,6 +130,8 @@ if (!barStatus) {
   
   const [user] = useAuthState(FireStoreService.auth)
   const [name, setName] = useState('')
+
+ 
 
   const setUser = (e) => {
     e.preventDefault()

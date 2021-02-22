@@ -27,9 +27,11 @@ export const getDB = (observer) => {
   export const signInAnon = () => {
     return (
       auth.signInAnonymously()
-          .then(() => {
+          .then((user) => {
             console.log("user is signed in");
       })
+
+      
     )
   }
 
