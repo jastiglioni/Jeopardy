@@ -16,7 +16,7 @@ var firebaseConfig = {
   export const db = firebase.firestore()
   export const auth = firebase.auth()
   const docRefBuzzUser = db.collection("trivia").doc("Buzzer")
-  const docRefBuzzStatus = db.collection("trivia").doc("Bar")
+  export const docRefBuzzStatus = db.collection("trivia").doc("Bar")
 
 export const getDB = (observer) => {
   return (

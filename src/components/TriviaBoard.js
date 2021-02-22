@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Tile from './trivia/Tile'
 import Popup from './trivia/Popup'
 import '../styles/App.css';
+import * as FireStoreService from '../services/dbConfig'
 
 const TriviaBoard = (props) => {
   const [tiles] = useState(props.notes)
@@ -19,11 +20,13 @@ const TriviaBoard = (props) => {
   }
 
 
-
+  
 
   const togglePopup = () => {
     setPopup(!popup)
-   
+    FireStoreService.docRefBuzzStatus.update({
+      status: false
+    })
   }
 
   

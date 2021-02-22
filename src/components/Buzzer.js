@@ -43,7 +43,7 @@ function SignOut() {
 
 const Button = (props) => {
   const [click, setClick] = useState('Blue')
-  const [name, setName] = useState(props.name)
+  const [name] = useState(props.name)
 
 
 const hook = () => {
