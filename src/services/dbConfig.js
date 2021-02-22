@@ -76,9 +76,9 @@ export const getDB = (observer) => {
     )
   }
 
-  export const readBuzzerStatus = () => {
+  export const readBuzzerStatus = (observer) => {
     return (
-      docRefBuzzStatus.onSnapshot()
+      docRefBuzzStatus.onSnapshot(observer)
     )
   }
 

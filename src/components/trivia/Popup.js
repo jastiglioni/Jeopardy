@@ -3,13 +3,14 @@ import './Popup.css'
 import Play from './Play'
 import Answer from './Answer'
 import * as FireStoreService from '../../services/dbConfig'
+import BuzzBar from './BuzzBar'
 
 
 
 const Popup = (props) => {
 
 const [name, setName] = useState('')
-const [barStatus, setBarStatus] = useState(true)
+
 
 
 const hook = () => {
@@ -22,6 +23,8 @@ const hook = () => {
     })
     return unsubscribe
   }
+
+   useEffect(hook, [setName])
 
 // const hook = () => {
 //     const unsubscribe = FireStoreService.getDB({
@@ -43,10 +46,10 @@ const hook = () => {
 //       return unsubscribe
 //   }
   
-    useEffect(hook, [setName, setBarStatus])
+    // useEffect(hook, [setName, setBarStatus])
     //useEffect(hook2, [setBarStatus])
 
-  console.log("bar status is ", barStatus);
+
     
     const [ansFlag, setAnsFlag] = useState(false)
     const toggleAnswer = () => {
@@ -66,8 +69,8 @@ const hook = () => {
         <div className='popup'>
 
 
-            <div className={`buzzbar${barStatus}`}>{name}</div>
-            
+          
+            <BuzzBar name={name} />
 
             <div className='popup-inner'>
                 <div className='close-btn'>
