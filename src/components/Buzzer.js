@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 //import db from './dbConfig'
 import * as FireStoreService from '../services/dbConfig'
 import bee from './bee.png'
+import './trivia/Korinna-Regular.otf'
 
 //const auth = FireStoreService.auth
 
@@ -25,7 +26,9 @@ const SignIn = (props) => {
       <form onSubmit={signIn}>
         <input placeholder="enter your name here" onChange={props.func}></input>
         <br/>
-        <button type="submit" >Sign Into Trivia</button>
+        <br/>
+        <br/>
+        <button class="plain" type="submit" >Activate Buzzer</button>
       </form>
     </>
   )
@@ -38,7 +41,7 @@ function SignOut() {
       FireStoreService.signOut()
     }
   return (
-    <button className="sign-out" onClick={signOut}>Sign Out</button>
+    <button className="plain" onClick={signOut}>Sign Out</button>
   )
 }
 
@@ -73,7 +76,6 @@ const hook = () => {
         const unsubscribe = FireStoreService.readBuzzerStatus({
           next: dbSnapshot => {
             setBarStatus(dbSnapshot.data().status)
-            // setBarStatus(dbSnapshot.doc("Buzzer").data().status)
           },
           error: () => console.log("there is an error with hook on popup")
         })
@@ -119,7 +121,7 @@ if (!barStatus) {
   
  return (
     <>
-      <h1>Hello {name}</h1>
+      <h1 style={{fontFamily: 'Korinna'}}>Hello {name}</h1>
       <button className={barStatus ? `button${click}` : `buttonGrey`} onClick={changeColor}><img src={bee} alt="bee" width="150" height="150" /></button>
       <br/>
       
@@ -143,7 +145,7 @@ if (!barStatus) {
     <div className="App">
     <header>
     
-      <h1>Welcome to Trivia Buzzer</h1>
+      <h3 style={{fontFamily: 'Korinna'}}>Welcome to Trivia Buzzer</h3>
       
     </header>
 

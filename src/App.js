@@ -46,11 +46,11 @@ const notes = [
 ]
   const App = () => {
     return (
-    <div>
+    <div >
       <Router>
         <Switch>
-          <Route exact path="/" render={() => (<Home />)} />
-          <Route path="/buzzer" component={Buzzer} />
+          {/* <Route exact path="/" render={() => (<Home />)} /> */}
+          <Route exact path="/" component={Buzzer} />
           <Route path="/trivia" render={() => (
                 <TriviaBoard notes={notes} />
               )} />
