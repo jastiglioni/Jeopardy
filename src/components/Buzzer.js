@@ -24,6 +24,7 @@ const SignIn = (props) => {
     <>
       <form onSubmit={signIn}>
         <input placeholder="enter your name here" onChange={props.func}></input>
+        <br/>
         <button type="submit" >Sign Into Trivia</button>
       </form>
     </>
@@ -119,7 +120,7 @@ if (!barStatus) {
  return (
     <>
       <h1>Hello {name}</h1>
-      <button className={barStatus ? `button${click}` : `buttonGrey`} onClick={changeColor}><img src={bee} alt="bee" width="300" height="300" /></button>
+      <button className={barStatus ? `button${click}` : `buttonGrey`} onClick={changeColor}><img src={bee} alt="bee" width="150" height="150" /></button>
       <br/>
       
      
@@ -151,7 +152,7 @@ if (!barStatus) {
     </div>
     <br/>
     <br/>
-    <SignOut />
+    { user ? <SignOut /> : "" }
   </div>
   )
 }

@@ -28,12 +28,30 @@ const hook = () => {
 
 
 
+
+
+   const [ansFlag, setAnsFlag] = useState(false)
+  
+
+   const hook2 = () => {
+    const unsubscribe = FireStoreService.getAnswerCard({
+      next: dbSnapshot => {
+        setAnsFlag(dbSnapshot.data().answerCard)
+        // setBarStatus(dbSnapshot.doc("Buzzer").data().status)
+      },
+      error: () => console.log("there is an error with hook on popup")
+    })
+    return unsubscribe
+  }
+
+  useEffect(hook2, [setAnsFlag])
+
     
-    const [ansFlag, setAnsFlag] = useState(false)
-    const toggleAnswer = () => {
-        setAnsFlag(!ansFlag)
-        console.log(ansFlag);
-    }
+//   const toggleAnswer = () => {
+//     setAnsFlag(!ansFlag)
+//     console.log(ansFlag);
+// }
+    
 
     const popupToggle = (f) => {
         setAnsFlag(false)
@@ -52,7 +70,7 @@ const hook = () => {
 
             <div className='popup-inner'>
                 <div className='close-btn'>
-                <button onClick={toggleAnswer}>Answer</button>
+                {/* <button onClick={toggleAnswer}>Answer</button> */}
                 <button onClick={() => popupToggle(props.func)} >X</button>
                 </div>
                     <p className='text'>{props.text}</p>

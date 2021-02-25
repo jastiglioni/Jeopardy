@@ -15,8 +15,11 @@ var firebaseConfig = {
   
   export const db = firebase.firestore()
   export const auth = firebase.auth()
-  const docRefBuzzUser = db.collection("trivia").doc("Buzzer")
-  export const docRefBuzzStatus = db.collection("trivia").doc("Bar")
+  const colRefTrivia = db.collection("trivia")
+  const docRefBuzzUser = colRefTrivia.doc("Buzzer")
+  export const docRefBuzzStatus = colRefTrivia.doc("Bar")
+  const docRefAnswerCard = colRefTrivia.doc("Answer")
+  
 
 export const getDB = (observer) => {
   return (
@@ -25,14 +28,10 @@ export const getDB = (observer) => {
 }
 
   export const signInAnon = () => {
+    auth.setPersistence(firebase.auth.Auth.Persistence.NONE)
     return (
       auth.signInAnonymously()
-          .then((user) => {
-            console.log("user is signed in");
-      })
-
-      
-    )
+      )
   }
 
   export const signOut = () => {
@@ -99,6 +98,21 @@ export const getDB = (observer) => {
   }
 
 
+  export const getAnswerCard = (observer) => {
+    return (
+      docRefAnswerCard.onSnapshot(observer)
+    )
+  }
+
+  export const setAnswerCard = (val) => {
+    return (
+      docRefAnswerCard.update({
+        answerCard: val
+      })
+    )
+  }
+
+  
 
 
   export default firebase

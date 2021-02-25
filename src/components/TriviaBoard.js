@@ -28,6 +28,7 @@ const TriviaBoard = (props) => {
       status: false
     })
     FireStoreService.resetBuzzUser()
+    FireStoreService.setAnswerCard(false)
   }
 
   

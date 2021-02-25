@@ -13,8 +13,8 @@ button.buttonGreen{
     box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
     text-align:center;
     position:relative;
-    height: 500px;
-    width: 400px;
+    height: 250px;
+    width: 200px;
     }
     button.buttonGreen:active{
         top:0.1em;
@@ -41,8 +41,8 @@ button.buttonBlue{
     box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
     text-align:center;
     position:relative;
-    height: 500px;
-    width: 400px;
+    height: 250px;
+    width: 200px;
     }
     button.buttonBlue:active{
         top:0.1em;
@@ -70,8 +70,8 @@ button.buttonGrey{
     box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
     text-align:center;
     position:relative;
-    height: 500px;
-    width: 400px;
+    height: 250px;
+    width: 200px;
     }
     button.buttonGrey:active{
         top:0.1em;
@@ -98,8 +98,8 @@ button.buttonRed{
     box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
     text-align:center;
     position:relative;
-    height: 500px;
-    width: 400px;
+    height: 250px;
+    width: 200px;
     }
     button.buttonRed:active{
         top:0.1em;
