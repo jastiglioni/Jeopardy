@@ -19,7 +19,32 @@ var firebaseConfig = {
   const docRefBuzzUser = colRefTrivia.doc("Buzzer")
   export const docRefBuzzStatus = colRefTrivia.doc("Bar")
   const docRefAnswerCard = colRefTrivia.doc("Answer")
+  const docRefPopup = colRefTrivia.doc("Popup")
   
+
+
+
+export const readPopup = (obs) => {
+  return (
+    docRefPopup.onSnapshot(obs)
+  )
+}
+
+export const getPopup = async () => {
+  return (
+    await docRefPopup.get()
+  )
+}
+
+export const setPopup = async (val) => {
+  return (
+    await docRefPopup.update({
+      showPopup: val
+    })
+  )
+}
+
+
 
 export const getDB = (observer) => {
   return (
