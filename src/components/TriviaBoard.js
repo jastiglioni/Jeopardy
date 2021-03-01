@@ -6,18 +6,12 @@ import * as FireStoreService from '../services/dbConfig'
 
 const TriviaBoard = () => {
   const [tiles, setTiles] = useState([])
-  const [popup, setPopup] = useState(false)
-  const [q2, setq2] = useState('')
-  const [audio, setAudio] = useState(false)
-  const [answer, setAnswer] = useState("")
+  // const [popup, setPopup] = useState(false)
+  // const [q2, setq2] = useState('')
+  // const [audio, setAudio] = useState(false)
+  // const [answer, setAnswer] = useState("")
 
-  const setQuestion = (tile) => {
-    setq2(tile.text)
-    setAudio(tile.audio)
-    tile.value = ''
-    togglePopup()
-    setAnswer(tile.answer)
-  }
+ 
 
  
 
@@ -34,15 +28,22 @@ const hook = () => {
   useEffect(hook, [])
 
   
+  // const setQuestion = (tile) => {
+  //   setq2(tile.text)
+  //   setAudio(tile.audio)
+  //   tile.value = ''
+  //   togglePopup()
+  //   setAnswer(tile.answer)
+  // }
 
-  const togglePopup = () => {
-    setPopup(!popup)
-    FireStoreService.docRefBuzzStatus.update({
-      status: false
-    })
-    FireStoreService.resetBuzzUser()
-    FireStoreService.setAnswerCard(false)
-  }
+  // const togglePopup = () => {
+  //   setPopup(!popup)
+  //   FireStoreService.docRefBuzzStatus.update({
+  //     status: false
+  //   })
+  //   FireStoreService.resetBuzzUser()
+  //   FireStoreService.setAnswerCard(false)
+  // }
 
   
   const col = {
@@ -60,8 +61,7 @@ const hook = () => {
   return (
     <div className="App">
       <button style={col}>CITIES & COUNTRIES</button>
-      {tiles.map(obj => <Tile func={() => setQuestion(obj)} key={obj.text} tile={obj.value} />)}
-        <Popup func={() => togglePopup()} answer={answer} trigger={popup} text={q2.toUpperCase()} audio={audio} />
+      {tiles.map(obj => <Tile obj={obj} key={obj.text} />)}
     </div>
 
     

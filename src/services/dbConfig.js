@@ -24,7 +24,13 @@ var firebaseConfig = {
   
 
   
-
+export const toggleQ = async (num) => {
+  return (
+     colRefQuestion.doc(`q${num}`).update({
+      show: ! (await colRefQuestion.doc(`q${num}`).get()).data().show
+    })
+  )
+}
 
 export const readPopup = (obs) => {
   return (
@@ -118,6 +124,14 @@ export const getDB = (observer) => {
    )
   }
 
+  export const setBuzzBar = async (val) => {
+    return (
+      docRefBuzzStatus.update({
+        status: val
+      })
+    )
+  }
+
   export const getButtonStatus = (observer) => {
     return (
        docRefBuzzUser.onSnapshot(observer)
@@ -135,6 +149,14 @@ export const getDB = (observer) => {
     return (
       docRefAnswerCard.update({
         answerCard: val
+      })
+    )
+  }
+
+  export const toggleAnswerCard = async () => {
+    return (
+      docRefAnswerCard.update({
+        answerCard: ! (await docRefAnswerCard.get()).data().answerCard
       })
     )
   }

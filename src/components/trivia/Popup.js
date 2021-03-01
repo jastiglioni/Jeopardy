@@ -9,7 +9,7 @@ import BuzzBar from './BuzzBar'
 
 const Popup = (props) => {
 
-const [name, setName] = useState('')
+const [name, setName] = useState('Buzzer Active')
 
 
 
@@ -47,21 +47,16 @@ const hook = () => {
   useEffect(hook2, [setAnsFlag])
 
     
-//   const toggleAnswer = () => {
-//     setAnsFlag(!ansFlag)
-//     console.log(ansFlag);
-// }
-    
 
-    const popupToggle = (f) => {
-        //setAnsFlag(false)
-        return f()
-    }
+
+    // const popupToggle = (f) => {
+    //     return f()
+    // }
 
 
 
 
-    return (props.trigger) ? (
+    return (
         <div className='popup'>
 
 
@@ -71,7 +66,7 @@ const hook = () => {
             <div className='popup-inner'>
                 <div className='close-btn'>
                 {/* <button onClick={toggleAnswer}>Answer</button> */}
-                <button onClick={() => popupToggle(props.func)} >X</button>
+                {/* <button onClick={() => popupToggle(props.func)} >X</button> */}
                 </div>
                     <p className='text'>{props.text}</p>
                     
@@ -80,7 +75,7 @@ const hook = () => {
                     <Play audio={props.audio}/>
             </div>
         </div>
-    ) :''
+    )
 }
 
 export default Popup
