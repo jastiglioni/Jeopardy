@@ -1,15 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Tile from './trivia/Tile'
 import Popup from './trivia/Popup'
 import '../styles/App.css';
 import * as FireStoreService from '../services/dbConfig'
 
-const TriviaBoard = (props) => {
-  const [tiles] = useState(props.notes)
+const TriviaBoard = () => {
+  const [tiles, setTiles] = useState([])
   const [popup, setPopup] = useState(false)
   const [q2, setq2] = useState('')
   const [audio, setAudio] = useState(false)
-  const [answer, setAnswer] = useState(props.answer)
+  const [answer, setAnswer] = useState("")
 
   const setQuestion = (tile) => {
     setq2(tile.text)
@@ -19,6 +19,19 @@ const TriviaBoard = (props) => {
     setAnswer(tile.answer)
   }
 
+ 
+
+
+const hook = () => {
+    FireStoreService.colRefQuestion.onSnapshot(snap => {
+      const val = snap.docs.map(doc => ({
+        ...doc.data()
+      }))
+      setTiles(val)
+    })
+  }
+
+  useEffect(hook, [])
 
   
 
@@ -48,7 +61,7 @@ const TriviaBoard = (props) => {
     <div className="App">
       <button style={col}>CITIES & COUNTRIES</button>
       {tiles.map(obj => <Tile func={() => setQuestion(obj)} key={obj.text} tile={obj.value} />)}
-        <Popup func={() => togglePopup()} answer={answer} trigger={popup} text={q2} audio={audio} />
+        <Popup func={() => togglePopup()} answer={answer} trigger={popup} text={q2.toUpperCase()} audio={audio} />
     </div>
 
     

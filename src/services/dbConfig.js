@@ -20,8 +20,10 @@ var firebaseConfig = {
   export const docRefBuzzStatus = colRefTrivia.doc("Bar")
   const docRefAnswerCard = colRefTrivia.doc("Answer")
   const docRefPopup = colRefTrivia.doc("Popup")
+  export const colRefQuestion = db.collection("question")
   
 
+  
 
 
 export const readPopup = (obs) => {
