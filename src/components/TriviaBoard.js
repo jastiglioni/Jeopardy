@@ -6,15 +6,6 @@ import * as FireStoreService from '../services/dbConfig'
 
 const TriviaBoard = () => {
   const [tiles, setTiles] = useState([])
-  // const [popup, setPopup] = useState(false)
-  // const [q2, setq2] = useState('')
-  // const [audio, setAudio] = useState(false)
-  // const [answer, setAnswer] = useState("")
-
- 
-
- 
-
 
 const hook = () => {
     FireStoreService.colRefQuestion.onSnapshot(snap => {
@@ -27,23 +18,6 @@ const hook = () => {
 
   useEffect(hook, [])
 
-  
-  // const setQuestion = (tile) => {
-  //   setq2(tile.text)
-  //   setAudio(tile.audio)
-  //   tile.value = ''
-  //   togglePopup()
-  //   setAnswer(tile.answer)
-  // }
-
-  // const togglePopup = () => {
-  //   setPopup(!popup)
-  //   FireStoreService.docRefBuzzStatus.update({
-  //     status: false
-  //   })
-  //   FireStoreService.resetBuzzUser()
-  //   FireStoreService.setAnswerCard(false)
-  // }
 
   
   const col = {
@@ -62,6 +36,8 @@ const hook = () => {
     <div className="App">
       <button style={col}>CITIES & COUNTRIES</button>
       {tiles.map(obj => <Tile obj={obj} key={obj.text} />)}
+      <p>in beta don't @ me</p>
+      <p>send feature requests here ––> <span role="img" aria-label="trash">🗑️</span></p>
     </div>
 
     
