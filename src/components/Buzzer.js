@@ -1,17 +1,9 @@
 import '../styles/Button.css'
 import React, {useState, useEffect} from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-//import db from './dbConfig'
 import * as FireStoreService from '../services/dbConfig'
 import bee from './bee.png'
 import './trivia/Korinna-Regular.otf'
-
-//const auth = FireStoreService.auth
-
-
-
-//console.log("Hey " + docRefBuzzBar.get());
-
 
 const SignIn = (props) => {
  
@@ -28,7 +20,7 @@ const SignIn = (props) => {
         <br/>
         <br/>
         <br/>
-        <button class="plain" type="submit" >Activate Buzzer</button>
+        <button className="false" type="submit" >Activate Buzzer</button>
       </form>
     </>
   )

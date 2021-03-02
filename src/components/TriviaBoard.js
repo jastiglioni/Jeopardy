@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import Tile from './trivia/Tile'
-import Popup from './trivia/Popup'
 import '../styles/App.css';
 import * as FireStoreService from '../services/dbConfig'
 
 const TriviaBoard = () => {
   const [tiles, setTiles] = useState([])
+  const [category, setCategory] = useState("")
 
 const hook = () => {
     FireStoreService.colRefQuestion.onSnapshot(snap => {
@@ -14,11 +14,13 @@ const hook = () => {
       }))
       setTiles(val)
     })
+
+    FireStoreService.colRefTrivia.doc("Panel").onSnapshot(snap => {
+      setCategory(snap.data().category)
+    })
   }
 
   useEffect(hook, [])
-
-
   
   const col = {
     color: `white`,
@@ -29,18 +31,13 @@ const hook = () => {
     fontSize: `50px`,
     textAlign: `center`,
     textShadow: `4px 4px 0.075em black`,
-    border: `none`
   }
  
   return (
     <div className="App">
-      <button style={col}>CITIES & COUNTRIES</button>
+      <button style={col}>{category.toUpperCase()}</button>
       {tiles.map(obj => <Tile obj={obj} key={obj.text} />)}
-      <p>in beta don't @ me</p>
-      <p>send feature requests here ––> <span role="img" aria-label="trash">🗑️</span></p>
     </div>
-
-    
   );
 }
 

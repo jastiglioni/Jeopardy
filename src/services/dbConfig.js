@@ -1,4 +1,6 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
 
 
 // Your web app's Firebase configuration
@@ -15,14 +17,20 @@ var firebaseConfig = {
   
   export const db = firebase.firestore()
   export const auth = firebase.auth()
-  const colRefTrivia = db.collection("trivia")
+  export const colRefTrivia = db.collection("trivia")
+  export const colRefQuestion = db.collection("question")
+
+
+
   const docRefBuzzUser = colRefTrivia.doc("Buzzer")
   export const docRefBuzzStatus = colRefTrivia.doc("Bar")
   const docRefAnswerCard = colRefTrivia.doc("Answer")
   const docRefPopup = colRefTrivia.doc("Popup")
-  export const colRefQuestion = db.collection("question")
   
-
+  
+  
+  
+//export const getCategory = 
   
 export const toggleQ = async (num) => {
   return (
