@@ -43,11 +43,11 @@ const Button = (props) => {
 
 
 const hook = () => {
-  const unsubscribe = FireStoreService.getBuzzUser({
+  const unsubscribe = FireStoreService.readBuzzerStatus({
     next: dbSnapshot => {
       if (dbSnapshot.data().name === name) {
         setClick('Green')
-      } else if (dbSnapshot.data().name === 'Buzzer Active') {
+      } else if (dbSnapshot.data().name === "Buzzer Active") {
         setClick('Blue')
       } else {
         setClick('Red')

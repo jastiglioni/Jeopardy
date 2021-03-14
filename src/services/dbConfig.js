@@ -23,10 +23,10 @@ var firebaseConfig = {
 
 
 
-  const docRefBuzzUser = colRefTrivia.doc("Buzzer")
-  export const docRefBuzzStatus = colRefTrivia.doc("Bar")
-  const docRefAnswerCard = colRefTrivia.doc("Answer")
-  const docRefPopup = colRefTrivia.doc("Popup")
+  // const docRefBuzzUser = colRefTrivia.doc("Buzzer")
+  // const docRefBuzzStatus = colRefTrivia.doc("Bar")
+  // const docRefAnswerCard = colRefTrivia.doc("Answer")
+  // const docRefPopup = colRefTrivia.doc("Popup")
   
   
   
@@ -41,33 +41,25 @@ export const toggleQ = async (num) => {
   )
 }
 
-export const readPopup = (obs) => {
-  return (
-    docRefPanel.onSnapshot(obs)
-  )
-}
+// export const readPopup = (obs) => {
+//   return (
+//     docRefPanel.onSnapshot(obs)
+//   )
+// }
 
-export const getPopup = async () => {
-  return (
-    await docRefPopup.get()
-  )
-}
+// export const getPopup = async () => {
+//   return (
+//     await docRefPopup.get()
+//   )
+// }
 
-export const setPopup = async (val) => {
-  return (
-    await docRefPopup.update({
-      showPopup: val
-    })
-  )
-}
-
-
-
-export const getDB = (observer) => {
-  return (
-    db.onSnapshot(observer)
-  )
-}
+// export const setPopup = async (val) => {
+//   return (
+//     await docRefPopup.update({
+//       showPopup: val
+//     })
+//   )
+// }
 
   export const signInAnon = () => {
     auth.setPersistence(firebase.auth.Auth.Persistence.NONE)
@@ -88,8 +80,6 @@ export const getDB = (observer) => {
     )
   }
 
-
-
   export const setBuzzUser = async (name) => {
     return (
       await docRefPanel.update({
@@ -98,17 +88,6 @@ export const getDB = (observer) => {
       })
     )
   }
-
-  // this function returns Bar doc in firebase
-  // must specify doc.data().status to get status
-  export const getDbSnapshot =  (observer) => {
-    return (
-      db.collection("trivia").onSnapshot(observer)
-    )
-  }
-
-
-
 
   export const resetBuzzUser = async () => {
     return (
@@ -150,13 +129,13 @@ export const getDB = (observer) => {
 
   export const getAnswerCard = (observer) => {
     return (
-      docRefAnswerCard.onSnapshot(observer)
+      docRefPanel.onSnapshot(observer)
     )
   }
 
   export const setAnswerCard = (val) => {
     return (
-      docRefAnswerCard.update({
+      docRefPanel.update({
         answerCard: val
       })
     )
@@ -164,8 +143,8 @@ export const getDB = (observer) => {
 
   export const toggleAnswerCard = async () => {
     return (
-      docRefAnswerCard.update({
-        answerCard: ! (await docRefAnswerCard.get()).data().answerCard
+      docRefPanel.update({
+        answerCard: ! (await docRefPanel.get()).data().answerCard
       })
     )
   }

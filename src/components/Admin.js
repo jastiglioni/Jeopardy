@@ -22,9 +22,10 @@ export default function Admin() {
 
     const click = (val) => {
       FireStoreService.toggleQ(val)
+      FireStoreService.resetBuzzUser()
       FireStoreService.setAnswerCard(false)
       FireStoreService.setBuzzBar(false)
-      FireStoreService.resetBuzzUser()
+      
     }
 
     const Button = (props) => {
@@ -55,12 +56,12 @@ export default function Admin() {
       <br/>
       <br/>
       <br/>
-      <button className="false" onClick={reset}>Reset Database & Buzzah!</button>
+      <button className="false" onClick={reset}>Wrong Answer</button>
       <br/>
       <br/>
       <br/>
       <br/>
-      <button className="false" onClick={showAnswer}> Show Answer </button>
+      <button className="false" onClick={showAnswer}>Correct Answer</button>
       <br/>
       <br/>
       <br/>
