@@ -33,7 +33,7 @@ function SignOut() {
       FireStoreService.signOut()
     }
   return (
-    <button className="plain" onClick={signOut}>Sign Out</button>
+    <button className="false" onClick={signOut}>Sign Out</button>
   )
 }
 
@@ -43,7 +43,7 @@ const Button = (props) => {
 
 
 const hook = () => {
-  const unsubscribe = FireStoreService.getButtonStatus({
+  const unsubscribe = FireStoreService.getBuzzUser({
     next: dbSnapshot => {
       if (dbSnapshot.data().name === name) {
         setClick('Green')
@@ -67,7 +67,7 @@ const hook = () => {
     const hook2 = () => {
         const unsubscribe = FireStoreService.readBuzzerStatus({
           next: dbSnapshot => {
-            setBarStatus(dbSnapshot.data().status)
+            setBarStatus(dbSnapshot.data().barStatus)
           },
           error: () => console.log("there is an error with hook on popup")
         })
@@ -86,7 +86,7 @@ if (!barStatus) {
       
       if (doc.exists) {
         const data = doc.data()
-        if (!data.buzzer || (data.name === name)) {
+        if (!data.buzzerStatus || (data.name === name)) {
           console.log(`${props.name} buzzed in >:^(`)
           FireStoreService.setBuzzUser(name)
           setClick('Green')

@@ -14,13 +14,15 @@ const hook = () => {
       }))
       setTiles(val)
     })
-
+    
     FireStoreService.colRefTrivia.doc("Panel").onSnapshot(snap => {
       setCategory(snap.data().category)
     })
   }
 
   useEffect(hook, [])
+
+  console.log(tiles);
   
   const col = {
     color: `white`,

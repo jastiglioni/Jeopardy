@@ -10,7 +10,7 @@ export default function BuzzBar(props) {
     const hook = () => {
         const unsubscribe = FireStoreService.readBuzzerStatus({
           next: dbSnapshot => {
-            setBarStatus(dbSnapshot.data().status)
+            setBarStatus(dbSnapshot.data().barStatus)
             // setBarStatus(dbSnapshot.doc("Buzzer").data().status)
           },
           error: () => console.log("there is an error with hook on popup")

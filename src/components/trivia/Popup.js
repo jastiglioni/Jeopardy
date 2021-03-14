@@ -17,7 +17,6 @@ const hook = () => {
     const unsubscribe = FireStoreService.getButtonStatus({
       next: dbSnapshot => {
         setName(dbSnapshot.data().name)
-        // setBarStatus(dbSnapshot.doc("Buzzer").data().status)
       },
       error: () => console.log("there is an error with hook on popup")
     })
@@ -45,15 +44,6 @@ const hook = () => {
   }
 
   useEffect(hook2, [setAnsFlag])
-
-    
-
-
-    // const popupToggle = (f) => {
-    //     return f()
-    // }
-
-
 
 
     return (

@@ -19,6 +19,7 @@ var firebaseConfig = {
   export const auth = firebase.auth()
   export const colRefTrivia = db.collection("trivia")
   export const colRefQuestion = db.collection("question")
+  const docRefPanel = colRefTrivia.doc("Panel")
 
 
 
@@ -30,7 +31,7 @@ var firebaseConfig = {
   
   
   
-//export const getCategory = 
+
   
 export const toggleQ = async (num) => {
   return (
@@ -42,7 +43,7 @@ export const toggleQ = async (num) => {
 
 export const readPopup = (obs) => {
   return (
-    docRefPopup.onSnapshot(obs)
+    docRefPanel.onSnapshot(obs)
   )
 }
 
@@ -83,7 +84,7 @@ export const getDB = (observer) => {
 
   export const getBuzzUser = async () => {
     return (
-      await docRefBuzzUser.get()
+      await docRefPanel.get()
     )
   }
 
@@ -91,9 +92,9 @@ export const getDB = (observer) => {
 
   export const setBuzzUser = async (name) => {
     return (
-      await docRefBuzzUser.update({
+      await docRefPanel.update({
         name: name,
-        buzzer: true
+        buzzerStatus: true
       })
     )
   }
@@ -111,38 +112,38 @@ export const getDB = (observer) => {
 
   export const resetBuzzUser = async () => {
     return (
-      await docRefBuzzUser.update({
+      await docRefPanel.update({
         name: "Buzzer Active",
-        buzzer: false
+        buzzerStatus: false
       })
     )
   }
 
   export const readBuzzerStatus = (observer) => {
     return (
-      docRefBuzzStatus.onSnapshot(observer)
+      docRefPanel.onSnapshot(observer)
     )
   }
 
   export const toggleBuzzBar = async () => {
    return (
-     docRefBuzzStatus.update({
-       status: !(await docRefBuzzStatus.get()).data().status
+     docRefPanel.update({
+      barStatus: !(await docRefPanel.get()).data().barStatus
      })
    )
   }
 
   export const setBuzzBar = async (val) => {
     return (
-      docRefBuzzStatus.update({
-        status: val
+      docRefPanel.update({
+        barStatus: val
       })
     )
   }
 
   export const getButtonStatus = (observer) => {
     return (
-       docRefBuzzUser.onSnapshot(observer)
+       docRefPanel.onSnapshot(observer)
     )
   }
 
