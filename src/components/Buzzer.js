@@ -40,10 +40,11 @@ function SignOut() {
 const Button = (props) => {
   const [click, setClick] = useState('Blue')
   const [name] = useState(props.name)
+  const [barStatus, setBarStatus] = useState(false)
 
 
 const hook = () => {
-  const unsubscribe = FireStoreService.readBuzzerStatus({
+  const unsubscribe = FireStoreService.getPanelSnapshot({
     next: dbSnapshot => {
       if (dbSnapshot.data().name === name) {
         setClick('Green')
@@ -52,64 +53,34 @@ const hook = () => {
       } else {
         setClick('Red')
       }
+      setBarStatus(dbSnapshot.data().barStatus)
     },
     error: () => console.log("there is an error with hook")
   })
   return unsubscribe
 }
 
-  useEffect(hook, [name, setClick])
-
-  const [barStatus, setBarStatus] = useState(false)
+  useEffect(hook, [barStatus, setBarStatus, name, setClick])
 
 
 
-    const hook2 = () => {
-        const unsubscribe = FireStoreService.readBuzzerStatus({
-          next: dbSnapshot => {
-            setBarStatus(dbSnapshot.data().barStatus)
-          },
-          error: () => console.log("there is an error with hook on popup")
-        })
-        return unsubscribe
-      }
-
-      useEffect(hook2, [barStatus, setBarStatus])
 
 
   const changeColor = async (e) => {
     e.preventDefault();
-if (!barStatus) {
-
-} else {
-    FireStoreService.getBuzzUser().then(doc => {
-      
-      if (doc.exists) {
-        const data = doc.data()
-        if (!data.buzzerStatus || (data.name === name)) {
-          console.log(`${props.name} buzzed in >:^(`)
-          FireStoreService.setBuzzUser(name)
-          setClick('Green')
-        } else if (data.name === 'Buzzer Active'){
-          setClick('Blue')
-        } else {
-          setClick('Red')
-        }
-      } 
-      
-      else {
-        console.log("The BuzzUser document doesn't exist")
+    if (barStatus) {
+      if (click === 'Green') {
       }
-    
-      }).catch(error => {
-        console.log("Error getting document: ", error)
-      }) 
+      else if (click === 'Blue') {
+        setClick('Green')
+        FireStoreService.setBuzzUser(name)
+      } else {
+        setClick('Red')
+      }
+    }
 
-    }  }
-
- 
-  
- 
+  }
+   
   
  return (
     <>

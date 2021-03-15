@@ -8,7 +8,7 @@ export default function BuzzBar(props) {
 
 
     const hook = () => {
-        const unsubscribe = FireStoreService.readBuzzerStatus({
+        const unsubscribe = FireStoreService.getPanelSnapshot({
           next: dbSnapshot => {
             setBarStatus(dbSnapshot.data().barStatus)
             // setBarStatus(dbSnapshot.doc("Buzzer").data().status)

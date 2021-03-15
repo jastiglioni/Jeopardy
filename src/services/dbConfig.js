@@ -18,11 +18,13 @@ firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore()
 export const auth = firebase.auth()
+
+//need to find where these next two func are
 export const colRefTrivia = db.collection("trivia")
 export const colRefQuestion = db.collection("question")
 const docRefPanel = colRefTrivia.doc("Panel")
 
-  
+  //take away async
 export const toggleQ = async (num) => {
   return (
      colRefQuestion.doc(`q${num}`).update({
@@ -45,27 +47,11 @@ export const signOut = () => {
   )
 }
 
-export const getBuzzUser = async () => {
-  return (
-    await docRefPanel.get()
-  )
-}
 
-export const getButtonStatus = (observer) => {
-  return (
-      docRefPanel.onSnapshot(observer)
-  )
-}
 
-export const getAnswerCard = (observer) => {
+export const getPanelSnapshot = (obs) => {
   return (
-    docRefPanel.onSnapshot(observer)
-  )
-}
-
-export const readBuzzerStatus = (observer) => {
-  return (
-    docRefPanel.onSnapshot(observer)
+    docRefPanel.onSnapshot(obs)
   )
 }
 
