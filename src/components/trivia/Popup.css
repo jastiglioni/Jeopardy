@@ -1,0 +1,85 @@
+@font-face {
+    font-family: korinna;
+    src: url(Korinna-Regular.otf)
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0309B8;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup .buzzbartrue {
+    width: 69%;
+    background-color: rgb(255, 238, 0);
+    border-style: solid;
+    border-color: yellow;
+    font-size: 25px;
+    border-radius: 25px;
+    font-family: korinna;
+    src: url(Korinna-Regular.otf)
+}
+
+.popup .buzzbarfalse {
+
+
+    width: 69%;
+   
+    border-style: solid;
+    border-color: #0309B8;
+    font-size: 25px;
+    border-radius: 25px;
+    font-family: korinna;
+    src: url(Korinna-Regular.otf);
+
+
+    
+    background-color: #0309B8;
+    
+    color: #0309B8;
+}
+
+
+.popup-inner {
+    
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 1000px;
+    background-color: #0309B8;
+    font-family: korinna;
+    
+
+}
+
+.popup-inner .text {
+    color: whitesmoke;
+    text-shadow: 5px 5px 0.075em black;
+    font-size: 60px;
+}
+
+ .answerfalse {
+    color: #0309B8;
+    text-shadow: 3px 3px 0.075em #0309B8;
+    font-size: 45px;
+}
+
+.answertrue {
+    color: whitesmoke;
+    text-shadow: 3px 3px 0.075em black;
+    font-size: 45px;
+    font-family: korinna;
+}
+
+.popup-inner .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
